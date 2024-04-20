@@ -74,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Suspense>
             <ProgressBar />
           </Suspense>
-          <header className='fixed top-0 left-0 right-0 h-16 flex justify-between bg-white dark:bg-gray-950 bg-opacity-50 dark:bg-opacity-50 p-2 border-b backdrop-blur-sm z-50'>
+          <header className='fixed top-0 left-0 right-0 h-16 flex justify-between bg-white dark:bg-gray-950 bg-opacity-50 dark:bg-opacity-50 p-2 border-b backdrop-blur-sm z-50 container'>
             <Link className='flex items-center gap-2 hover:scale-105 transition-transform' href='/'>
               <h1>
                 <Image
