@@ -17,6 +17,9 @@ export default async function GroupsPage() {
         <div className='flex gap-2'>
           {/* <AddGroupByUrlButton reload={reload} /> */}
           <Button asChild>
+            <Link href='/groups/create'>Add By URL</Link>
+          </Button>
+          <Button asChild>
             <Link href='/groups/create'>Create</Link>
           </Button>
         </div>
