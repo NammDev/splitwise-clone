@@ -3,18 +3,20 @@
 import { db } from '../db'
 import { GroupFormValues } from '../schemas'
 import { randomId } from '../utils'
-import { cache } from 'react'
-import { unstable_noStore as noStore } from 'next/cache'
+import { unstable_cache as cache } from 'next/cache'
 
-export const getCacheGroup = cache(async (groupId: string) => {
-  noStore()
-  try {
-    return await getGroup(groupId)
-  } catch (err) {
-    console.error(err)
-    return null
-  }
-})
+export async function getCacheGroup(groupId: string) {
+  return await cache(
+    async () => {
+      return getGroup(groupId)
+    },
+    [`group-${groupId}`],
+    {
+      revalidate: 900,
+      tags: [`group-${groupId}`],
+    }
+  )()
+}
 
 export async function getGroup(groupId: string) {
   return db.group.findUnique({

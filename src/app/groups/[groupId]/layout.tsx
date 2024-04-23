@@ -1,12 +1,11 @@
-// import { cached } from '@/app/cached-functions'
-// import { GroupTabs } from '@/app/groups/[groupId]/group-tabs'
-// import { SaveGroupLocally } from '@/app/groups/[groupId]/save-recent-group'
 // import { ShareButton } from '@/app/groups/[groupId]/share-button'
 import { getCacheGroup } from '@/lib/actions/group'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { PropsWithChildren, Suspense } from 'react'
+import { GroupTabs } from './_components/group-tabs'
+import { SaveGroupLocally } from './_components/save-group'
 
 type Props = {
   params: {
@@ -40,14 +39,16 @@ export default async function GroupLayout({
         </h1>
 
         <div className='flex gap-2 justify-between'>
-          <Suspense>{/* <GroupTabs groupId={groupId} /> */}</Suspense>
+          <Suspense>
+            <GroupTabs groupId={groupId} />
+          </Suspense>
           {/* <ShareButton group={group} /> */}
         </div>
       </div>
 
       {children}
 
-      {/* <SaveGroupLocally group={{ id: group.id, name: group.name }} /> */}
+      <SaveGroupLocally group={{ id: group.id, name: group.name }} />
     </>
   )
 }
