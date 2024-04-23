@@ -1,7 +1,6 @@
-'use server'
-import { getGroups } from '@/lib/api'
+// 'use server'
+// import { getGroups } from '@/lib/api'
 
-export async function getGroupsAction(groupIds: string[]) {
-  'use server'
-  return getGroups(groupIds)
-}
+// export async function getGroupsAction(groupIds: string[]) {
+//   return getGroups(groupIds)
+// }

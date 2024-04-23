@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Group {
+  id           String        @id
+  name         String
+  currency     String        @default("$")
+  participants Participant[]
+  expenses     Expense[]
+  createdAt    DateTime      @default(now())
+}
+
+model Participant {
+  id              String           @id
+  name            String
+  group           Group            @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId         String
+  expensesPaidBy  Expense[]
+  expensesPaidFor ExpensePaidFor[]
+
+  @@index([groupId])
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  grouping String
+  name     String
+  Expense  Expense[]
+}
+
+model Expense {
+  id              String            @id
+  group           Group             @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  expenseDate     DateTime          @default(dbgenerated("CURRENT_DATE")) @db.Date
+  title           String
+  category        Category?         @relation(fields: [categoryId], references: [id])
+  categoryId      Int               @default(0)
+  amount          Int
+  paidBy          Participant       @relation(fields: [paidById], references: [id], onDelete: Cascade)
+  paidById        String
+  paidFor         ExpensePaidFor[]
+  groupId         String
+  isReimbursement Boolean           @default(false)
+  splitMode       SplitMode         @default(EVENLY)
+  createdAt       DateTime          @default(now())
+  documents       ExpenseDocument[]
+  notes           String?
+
+  @@index([groupId])
+  @@index([categoryId])
+  @@index([paidById])
+}
+
+model ExpenseDocument {
+  id        String   @id
+  url       String
+  width     Int
+  height    Int
+  Expense   Expense? @relation(fields: [expenseId], references: [id])
+  expenseId String?
+
+  @@index([expenseId])
+}
+
+enum SplitMode {
+  EVENLY
+  BY_SHARES
+  BY_PERCENTAGE
+  BY_AMOUNT
+}
+
+model ExpensePaidFor {
+  expense       Expense     @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  expenseId     String
+  participantId String
+  shares        Int         @default(1)
+
+  @@id([expenseId, participantId])
+  @@index([participantId])
+}
