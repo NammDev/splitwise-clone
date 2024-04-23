@@ -1,19 +1,19 @@
 'use client'
 
-import { getGroupsAction } from '@/app/groups/actions'
-import { AddGroupByUrlButton } from '@/app/groups/add-group-by-url-button'
 import {
   RecentGroups,
   getArchivedGroups,
   getRecentGroups,
   getStarredGroups,
-} from '@/app/groups/recent-groups-helpers'
+} from '@/lib/actions/storage'
+
 import { Button } from '@/components/ui/button'
-import { getGroups } from '@/lib/api'
 import { Loader2 } from 'lucide-react'
 import Link from 'next/link'
-import { PropsWithChildren, SetStateAction, useEffect, useState } from 'react'
-import { RecentGroupListCard } from './recent-group-list-card'
+import { useEffect, useState } from 'react'
+import { getGroups } from '@/lib/actions/group'
+import { GroupsPageLayout } from './groups-page'
+import { GroupList } from './groups-list'
 
 export type RecentGroupsState =
   | { status: 'pending' }
@@ -51,7 +51,7 @@ function sortGroups(state: RecentGroupsState & { status: 'complete' | 'partial' 
   }
 }
 
-export function RecentGroupList() {
+export function RecentGroupsPage() {
   const [state, setState] = useState<RecentGroupsState>({ status: 'pending' })
 
   function loadGroups() {
@@ -64,7 +64,7 @@ export function RecentGroupList() {
       starredGroups,
       archivedGroups,
     })
-    getGroupsAction(groupsInStorage.map((g) => g.id)).then((groupsDetails) => {
+    getGroups(groupsInStorage.map((g) => g.id)).then((groupsDetails) => {
       setState({
         status: 'complete',
         groups: groupsInStorage,
@@ -81,17 +81,17 @@ export function RecentGroupList() {
 
   if (state.status === 'pending') {
     return (
-      <GroupsPage reload={loadGroups}>
+      <GroupsPageLayout reload={loadGroups}>
         <p>
           <Loader2 className='w-4 m-4 mr-2 inline animate-spin' /> Loading recent groups…
         </p>
-      </GroupsPage>
+      </GroupsPageLayout>
     )
   }
 
   if (state.groups.length === 0) {
     return (
-      <GroupsPage reload={loadGroups}>
+      <GroupsPageLayout reload={loadGroups}>
         <div className='text-sm space-y-2'>
           <p>You have not visited any group recently.</p>
           <p>
@@ -101,14 +101,14 @@ export function RecentGroupList() {
             or ask a friend to send you the link to an existing one.
           </p>
         </div>
-      </GroupsPage>
+      </GroupsPageLayout>
     )
   }
 
   const { starredGroupInfo, groupInfo, archivedGroupInfo } = sortGroups(state)
 
   return (
-    <GroupsPage reload={loadGroups}>
+    <GroupsPageLayout reload={loadGroups}>
       {starredGroupInfo.length > 0 && (
         <>
           <h2 className='mb-2'>Starred groups</h2>
@@ -131,46 +131,6 @@ export function RecentGroupList() {
           </div>
         </>
       )}
-    </GroupsPage>
-  )
-}
-
-function GroupList({
-  groups,
-  state,
-  setState,
-}: {
-  groups: RecentGroups
-  state: RecentGroupsState
-  setState: (state: SetStateAction<RecentGroupsState>) => void
-}) {
-  return (
-    <ul className='grid gap-2 sm:grid-cols-2'>
-      {groups.map((group) => (
-        <RecentGroupListCard key={group.id} group={group} state={state} setState={setState} />
-      ))}
-    </ul>
-  )
-}
-
-function GroupsPage({ children, reload }: PropsWithChildren<{ reload: () => void }>) {
-  return (
-    <>
-      <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-2'>
-        <h1 className='font-bold text-2xl flex-1'>
-          <Link href='/groups'>My groups</Link>
-        </h1>
-        <div className='flex gap-2'>
-          <AddGroupByUrlButton reload={reload} />
-          <Button asChild>
-            <Link href='/groups/create'>
-              {/* <Plus className="w-4 h-4 mr-2" /> */}
-              <>Create</>
-            </Link>
-          </Button>
-        </div>
-      </div>
-      <div>{children}</div>
-    </>
+    </GroupsPageLayout>
   )
 }

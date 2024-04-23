@@ -1,6 +1,15 @@
-// 'use server'
-// import { getGroups } from '@/lib/api'
+'use server'
 
-// export async function getGroupsAction(groupIds: string[]) {
-//   return getGroups(groupIds)
-// }
+import { db } from '../db'
+
+export async function getGroups(groupIds: string[]) {
+  return (
+    await db.group.findMany({
+      where: { id: { in: groupIds } },
+      include: { _count: { select: { participants: true } } },
+    })
+  ).map((group) => ({
+    ...group,
+    createdAt: group.createdAt.toISOString(),
+  }))
+}
