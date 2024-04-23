@@ -53,7 +53,7 @@ export function GroupForm({ group, onSubmit, protectedParticipantIds = [] }: Pro
         }
       : {
           name: '',
-          currency: '',
+          currency: '$',
           participants: [{ name: 'John' }, { name: 'Jane' }, { name: 'Jack' }],
         },
   })
