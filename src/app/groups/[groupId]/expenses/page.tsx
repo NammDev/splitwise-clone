@@ -1,18 +1,15 @@
-// import { cached } from '@/app/cached-functions'
-// import { ActiveUserModal } from '@/app/groups/[groupId]/expenses/active-user-modal'
-// import { CreateFromReceiptButton } from '@/app/groups/[groupId]/expenses/create-from-receipt-button'
-// import { ExpenseList } from '@/app/groups/[groupId]/expenses/expense-list'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getCacheGroup } from '@/lib/actions/group'
-// import { getCategories, getGroupExpenses } from '@/lib/api'
-// import { env } from '@/lib/env'
 import { Download, Plus } from 'lucide-react'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
+import { ActiveUserModal } from './_components/active-user-model'
+import { ExpenseList } from './_components/expenses-list'
+import { getGroupExpenses } from '@/lib/actions/expenses'
 
 export const revalidate = 3600
 
@@ -27,6 +24,8 @@ export default async function GroupExpensesPage({
 }) {
   const group = await getCacheGroup(groupId)
   if (!group) notFound()
+
+  const expenses = await getGroupExpenses(groupId)
 
   //   const categories = await getCategories()
 
@@ -80,27 +79,17 @@ export default async function GroupExpensesPage({
               </div>
             ))}
           >
-            {/* <Expenses groupId={groupId} /> */}
+            <ExpenseList
+              expenses={expenses}
+              groupId={group.id}
+              currency={group.currency}
+              participants={group.participants}
+            />
           </Suspense>
         </CardContent>
       </Card>
 
-      {/* <ActiveUserModal group={group} /> */}
+      <ActiveUserModal group={group} />
     </>
   )
 }
-
-// async function Expenses({ groupId }: { groupId: string }) {
-//   const group = await cached.getGroup(groupId)
-//   if (!group) notFound()
-//   const expenses = await getGroupExpenses(group.id)
-
-//   return (
-//     <ExpenseList
-//       expenses={expenses}
-//       groupId={group.id}
-//       currency={group.currency}
-//       participants={group.participants}
-//     />
-//   )
-// }
