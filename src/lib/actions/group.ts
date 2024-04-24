@@ -55,3 +55,37 @@ export async function createGroup(groupFormValues: GroupFormValues) {
     include: { participants: true },
   })
 }
+
+export async function updateGroup(groupId: string, groupFormValues: GroupFormValues) {
+  const existingGroup = await getGroup(groupId)
+  if (!existingGroup) throw new Error('Invalid group ID')
+
+  return db.group.update({
+    where: { id: groupId },
+    data: {
+      name: groupFormValues.name,
+      currency: groupFormValues.currency,
+      participants: {
+        deleteMany: existingGroup.participants.filter(
+          (p) => !groupFormValues.participants.some((p2) => p2.id === p.id)
+        ),
+        updateMany: groupFormValues.participants
+          .filter((participant) => participant.id !== undefined)
+          .map((participant) => ({
+            where: { id: participant.id },
+            data: {
+              name: participant.name,
+            },
+          })),
+        createMany: {
+          data: groupFormValues.participants
+            .filter((participant) => participant.id === undefined)
+            .map((participant) => ({
+              id: randomId(),
+              name: participant.name,
+            })),
+        },
+      },
+    },
+  })
+}
