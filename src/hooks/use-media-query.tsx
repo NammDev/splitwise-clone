@@ -40,25 +40,3 @@ export function useMediaQuery(query: string): boolean {
 
   return matches
 }
-
-export function useBaseUrl() {
-  const [baseUrl, setBaseUrl] = useState<string | null>(null)
-  useEffect(() => {
-    setBaseUrl(window.location.origin)
-  }, [])
-  return baseUrl
-}
-
-/**
- * @returns The active user, or `null` until it is fetched from local storage
- */
-export function useActiveUser(groupId: string) {
-  const [activeUser, setActiveUser] = useState<string | null>(null)
-
-  useEffect(() => {
-    const activeUser = localStorage.getItem(`${groupId}-activeUser`)
-    if (activeUser) setActiveUser(activeUser)
-  }, [groupId])
-
-  return activeUser
-}
