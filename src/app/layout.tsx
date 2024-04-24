@@ -1,8 +1,8 @@
 // import { ApplePwaSplash } from '@/app/apple-pwa-splash'
+// import { env } from '@/lib/env'
 
 import { Button } from '@/components/ui/button'
 import { Toaster } from '@/components/ui/toaster'
-// import { env } from '@/lib/env'
 import type { Metadata, Viewport } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,6 +12,7 @@ import { ProgressBar } from '@/components/app-ui/progress-bar'
 import { ThemeProvider } from '@/components/app-ui/theme-provider'
 import { ModeToggle } from '@/components/app-ui/mode-toggle'
 import { SiteFooter } from '@/components/layouts/site-footer'
+import { SiteHeader } from '@/components/layouts/site-header'
 
 // export const metadata: Metadata = {
 //   metadataBase: new URL(env.NEXT_PUBLIC_BASE_URL),
@@ -75,35 +76,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Suspense>
             <ProgressBar />
           </Suspense>
-
-          <header className='fixed top-0 left-0 right-0 h-16 flex justify-between bg-white dark:bg-gray-950 bg-opacity-50 dark:bg-opacity-50 p-2 border-b backdrop-blur-sm z-50'>
-            <Link className='flex items-center gap-2 hover:scale-105 transition-transform' href='/'>
-              <h1>
-                <Image
-                  src='/logo-with-text.png'
-                  className='m-1 h-auto w-auto'
-                  width={(35 * 522) / 180}
-                  height={35}
-                  alt='Spliit'
-                />
-              </h1>
-            </Link>
-            <div role='navigation' aria-label='Menu' className='flex'>
-              <ul className='flex items-center text-sm'>
-                <li>
-                  <Button variant='ghost' asChild className='-my-3 text-primary'>
-                    <Link href='/groups'>Groups</Link>
-                  </Button>
-                </li>
-                <li>
-                  <ModeToggle />
-                </li>
-              </ul>
-            </div>
-          </header>
-
+          <SiteHeader />
           <div className='flex-1 flex flex-col'>{children}</div>
-
           <SiteFooter />
         </ThemeProvider>
         <Toaster />
