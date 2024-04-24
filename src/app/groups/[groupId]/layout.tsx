@@ -1,4 +1,3 @@
-// import { ShareButton } from '@/app/groups/[groupId]/share-button'
 import { getCacheGroup } from '@/lib/actions/group'
 import { Metadata } from 'next'
 import Link from 'next/link'
@@ -6,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { PropsWithChildren, Suspense } from 'react'
 import { GroupTabs } from './_components/group-tabs'
 import { SaveGroupLocally } from './_components/save-group'
+import { ShareButton } from './_components/share-button'
 
 type Props = {
   params: {
@@ -42,7 +42,7 @@ export default async function GroupLayout({
           <Suspense>
             <GroupTabs groupId={groupId} />
           </Suspense>
-          {/* <ShareButton group={group} /> */}
+          <ShareButton group={group} />
         </div>
       </div>
 

@@ -13,7 +13,7 @@ export function GroupsPageLayout({ children, reload }: PropsWithChildren<{ reloa
           <Link href='/groups'>My groups</Link>
         </h1>
         <div className='flex gap-2'>
-          {/* <AddGroupByUrlButton reload={reload} /> */}
+          <AddGroupByUrlButton reload={reload} />
           <Button asChild>
             <Link href='/groups/create'>Create</Link>
           </Button>
