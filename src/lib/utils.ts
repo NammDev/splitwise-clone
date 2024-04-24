@@ -47,3 +47,8 @@ export function formatFileSize(size: number) {
   if (size > 1024) return `${formatNumber(size / 1024)} kB`
   return `${formatNumber(size)} B`
 }
+
+export function formatDate(date?: Date) {
+  if (!date || isNaN(date as any)) date = new Date()
+  return date.toISOString().substring(0, 10)
+}

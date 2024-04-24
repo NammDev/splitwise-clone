@@ -1,6 +1,3 @@
-// import { ExpenseForm } from '@/components/expense-form'
-// import { createExpense, getCategories } from '@/lib/api'
-// import { getRuntimeFeatureFlags } from '@/lib/featureFlags'
 import { getCategories } from '@/lib/actions/categories'
 import { createExpense } from '@/lib/actions/expenses'
 import { getCacheGroup } from '@/lib/actions/group'
@@ -8,6 +5,8 @@ import { expenseFormSchema } from '@/lib/schemas'
 import { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 import { Suspense } from 'react'
+import { ExpenseForm } from '../_components/expense-form'
+import { getRuntimeFeatureFlags } from '@/lib/featureFlag'
 
 export const metadata: Metadata = {
   title: 'Create expense',
@@ -32,12 +31,12 @@ export default async function ExpensePage({
 
   return (
     <Suspense>
-      {/* <ExpenseForm
+      <ExpenseForm
         group={group}
         categories={categories}
         onSubmit={createExpenseAction}
         runtimeFeatureFlags={await getRuntimeFeatureFlags()}
-      /> */}
+      />
       <h1>Expense Form</h1>
     </Suspense>
   )

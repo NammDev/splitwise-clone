@@ -64,3 +64,10 @@ export async function createExpense(
     },
   })
 }
+
+export async function getExpense(groupId: string, expenseId: string) {
+  return db.expense.findUnique({
+    where: { id: expenseId },
+    include: { paidBy: true, paidFor: true, category: true, documents: true },
+  })
+}
