@@ -18,7 +18,7 @@ export function SiteFooter() {
         <section
           id='footer-content'
           aria-labelledby='footer-content-heading'
-          className='flex flex-col gap-10 lg:flex-row lg:gap-20'
+          className='lg:flex flex-col gap-10 lg:flex-row lg:gap-20 hidden'
         >
           <section id='footer-branding' aria-labelledby='footer-branding-heading'>
             <Link href='/' className='flex w-fit items-center space-x-2'>
