@@ -1,7 +1,6 @@
 'use client'
 
 import { CategoryIcon } from '@/components/app-ui/category-icons'
-// import { ActiveUserBalance } from '@/app/groups/[groupId]/expenses/active-user-balance'
 import { Button } from '@/components/ui/button'
 import { SearchBar } from '@/components/ui/search-bar'
 import { getGroupExpenses } from '@/lib/actions/expenses'
@@ -12,6 +11,7 @@ import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Fragment, useEffect, useState } from 'react'
+import { ActiveUserBalance } from './active-user-balance'
 
 type Props = {
   expenses: Awaited<ReturnType<typeof getGroupExpenses>>
@@ -134,7 +134,7 @@ export function ExpenseList({ expenses, currency, participants, groupId }: Props
                     ))}
                   </div>
                   <div className='text-xs text-muted-foreground'>
-                    {/* <ActiveUserBalance {...{ groupId, currency, expense }} /> */}
+                    <ActiveUserBalance {...{ groupId, currency, expense }} />
                   </div>
                 </div>
                 <div className='flex flex-col justify-between items-end'>
