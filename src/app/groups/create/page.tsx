@@ -13,5 +13,12 @@ export default async function CreateGroupPage() {
     redirect(`/groups/${group.id}`)
   }
 
-  return <GroupForm onSubmit={createGroupAction} />
+  return (
+    <>
+      <div className='flex flex-col sm:flex-row justify-between sm:items-center gap-3'>
+        <h1 className='font-bold text-2xl'>Create Group</h1>
+      </div>
+      <GroupForm onSubmit={createGroupAction} />
+    </>
+  )
 }
