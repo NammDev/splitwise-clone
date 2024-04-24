@@ -1,18 +1,15 @@
 // import { ApplePwaSplash } from '@/app/apple-pwa-splash'
 // import { env } from '@/lib/env'
 
-import { Button } from '@/components/ui/button'
 import { Toaster } from '@/components/ui/toaster'
 import type { Metadata, Viewport } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
 import { Suspense } from 'react'
-import './globals.css'
-import { ProgressBar } from '@/components/app-ui/progress-bar'
-import { ThemeProvider } from '@/components/app-ui/theme-provider'
-import { ModeToggle } from '@/components/app-ui/mode-toggle'
+import { ProgressBar } from '@/components/layouts/progress-bar'
+import { ThemeProvider } from '@/components/layouts/theme-provider'
 import { SiteFooter } from '@/components/layouts/site-footer'
 import { SiteHeader } from '@/components/layouts/site-header'
+
+import './globals.css'
 
 // export const metadata: Metadata = {
 //   metadataBase: new URL(env.NEXT_PUBLIC_BASE_URL),
@@ -66,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en' suppressHydrationWarning>
       {/* <ApplePwaSplash icon='/logo-with-text.png' color='#027756' /> */}
-      <body className='pt-16 min-h-[100dvh] flex flex-col items-stretch bg-slate-50 bg-opacity-30 dark:bg-background'>
+      <body className='min-h-[100dvh] flex flex-col items-stretch bg-slate-50 bg-opacity-30 dark:bg-background'>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
@@ -77,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ProgressBar />
           </Suspense>
           <SiteHeader />
-          <div className='flex-1 flex flex-col'>{children}</div>
+          <div className='flex-1 flex flex-col pt-16'>{children}</div>
           <SiteFooter />
         </ThemeProvider>
         <Toaster />
