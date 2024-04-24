@@ -37,7 +37,6 @@ export default async function ExpensePage({
         onSubmit={createExpenseAction}
         runtimeFeatureFlags={await getRuntimeFeatureFlags()}
       />
-      <h1>Expense Form</h1>
     </Suspense>
   )
 }

@@ -148,7 +148,7 @@ function CategoryLabel({ category }: { category: Category }) {
   return (
     <div className='flex items-center gap-3'>
       <CategoryIcon category={category} className='w-4 h-4' />
-      {/* {category.name} */} Hello
+      {category.name}
     </div>
   )
 }

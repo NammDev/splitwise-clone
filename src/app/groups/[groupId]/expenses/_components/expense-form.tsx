@@ -40,6 +40,7 @@ import { getCategories } from '@/lib/actions/categories'
 import { getExpense } from '@/lib/actions/expenses'
 import { RuntimeFeatureFlags } from '@/lib/featureFlag'
 import { CategorySelector } from '@/components/logic-ui/category-selector'
+import { DeletePopup } from '@/components/app-ui/delete-popup'
 
 export type Props = {
   group: NonNullable<Awaited<ReturnType<typeof getGroup>>>
@@ -623,11 +624,11 @@ export function ExpenseForm({
         )}
 
         <div className='flex mt-4 gap-2'>
-          <SubmitButton loadingContent={isCreate ? <>Creating…</> : <>Saving…</>}>
+          <SubmitButton loadingContent={isCreate ? 'Creating…' : 'Saving…'}>
             <Save className='w-4 h-4 mr-2' />
-            {isCreate ? <>Create</> : <>Save</>}
+            {isCreate ? 'Create' : 'Save'}
           </SubmitButton>
-          {/* {!isCreate && onDelete && <DeletePopup onDelete={onDelete}></DeletePopup>} */}
+          {!isCreate && onDelete && <DeletePopup onDelete={onDelete} />}
           <Button variant='ghost' asChild>
             <Link href={`/groups/${group.id}`}>Cancel</Link>
           </Button>
