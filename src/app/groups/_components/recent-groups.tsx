@@ -109,27 +109,19 @@ export function RecentGroupsPage() {
 
   return (
     <GroupsPageLayout reload={loadGroups}>
+      <h2 className='mb-2'>Starred groups</h2>
       {starredGroupInfo.length > 0 && (
-        <>
-          <h2 className='mb-2'>Starred groups</h2>
-          <GroupList groups={starredGroupInfo} state={state} setState={setState} />
-        </>
+        <GroupList groups={starredGroupInfo} state={state} setState={setState} />
       )}
 
-      {groupInfo.length > 0 && (
-        <>
-          <h2 className='mt-6 mb-2'>Recent groups</h2>
-          <GroupList groups={groupInfo} state={state} setState={setState} />
-        </>
-      )}
+      <h2 className='mt-6 mb-2'>Recent groups</h2>
+      {groupInfo.length > 0 && <GroupList groups={groupInfo} state={state} setState={setState} />}
 
+      <h2 className='mt-6 mb-2 opacity-50'>Archived groups</h2>
       {archivedGroupInfo.length > 0 && (
-        <>
-          <h2 className='mt-6 mb-2 opacity-50'>Archived groups</h2>
-          <div className='opacity-50'>
-            <GroupList groups={archivedGroupInfo} state={state} setState={setState} />
-          </div>
-        </>
+        <div className='opacity-50'>
+          <GroupList groups={archivedGroupInfo} state={state} setState={setState} />
+        </div>
       )}
     </GroupsPageLayout>
   )

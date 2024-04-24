@@ -13,7 +13,7 @@ import { ModeToggle } from './mode-toggle'
 
 export function SiteFooter() {
   return (
-    <footer className='w-full border-t bg-background'>
+    <footer className='w-full'>
       <Shell>
         <section
           id='footer-content'
