@@ -3,9 +3,9 @@
 // import { ProductsCommandMenu } from './product-command-menu'
 import { siteConfig } from './site'
 import { Button } from '../ui/button'
-import Link from 'next/link'
 import Image from 'next/image'
 import { ModeToggle } from './mode-toggle'
+import { Link } from '@/navigation'
 
 // export function SiteHeader() {
 //   return (
