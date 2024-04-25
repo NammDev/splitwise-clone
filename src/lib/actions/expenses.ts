@@ -72,6 +72,83 @@ export async function getExpense(groupId: string, expenseId: string) {
   })
 }
 
+export async function updateExpense(
+  groupId: string,
+  expenseId: string,
+  expenseFormValues: ExpenseFormValues
+) {
+  const group = await getGroup(groupId)
+  if (!group) throw new Error(`Invalid group ID: ${groupId}`)
+
+  const existingExpense = await getExpense(groupId, expenseId)
+  if (!existingExpense) throw new Error(`Invalid expense ID: ${expenseId}`)
+
+  for (const participant of [
+    expenseFormValues.paidBy,
+    ...expenseFormValues.paidFor.map((p) => p.participant),
+  ]) {
+    if (!group.participants.some((p) => p.id === participant))
+      throw new Error(`Invalid participant ID: ${participant}`)
+  }
+
+  return db.expense.update({
+    where: { id: expenseId },
+    data: {
+      expenseDate: expenseFormValues.expenseDate,
+      amount: expenseFormValues.amount,
+      title: expenseFormValues.title,
+      categoryId: expenseFormValues.category,
+      paidById: expenseFormValues.paidBy,
+      splitMode: expenseFormValues.splitMode,
+      paidFor: {
+        create: expenseFormValues.paidFor
+          .filter((p) => !existingExpense.paidFor.some((pp) => pp.participantId === p.participant))
+          .map((paidFor) => ({
+            participantId: paidFor.participant,
+            shares: paidFor.shares,
+          })),
+        update: expenseFormValues.paidFor.map((paidFor) => ({
+          where: {
+            expenseId_participantId: {
+              expenseId,
+              participantId: paidFor.participant,
+            },
+          },
+          data: {
+            shares: paidFor.shares,
+          },
+        })),
+        deleteMany: existingExpense.paidFor.filter(
+          (paidFor) =>
+            !expenseFormValues.paidFor.some((pf) => pf.participant === paidFor.participantId)
+        ),
+      },
+      isReimbursement: expenseFormValues.isReimbursement,
+      documents: {
+        connectOrCreate: expenseFormValues.documents.map((doc) => ({
+          create: doc,
+          where: { id: doc.id },
+        })),
+        deleteMany: existingExpense.documents
+          .filter(
+            (existingDoc) => !expenseFormValues.documents.some((doc) => doc.id === existingDoc.id)
+          )
+          .map((doc) => ({
+            id: doc.id,
+          })),
+      },
+      notes: expenseFormValues.notes,
+    },
+  })
+}
+
+export async function deleteExpense(expenseId: string) {
+  await db.expense.delete({
+    where: { id: expenseId },
+    include: { paidFor: true, paidBy: true },
+  })
+}
+
 export function getTotalGroupSpending(
   expenses: NonNullable<Awaited<ReturnType<typeof getGroupExpenses>>>
 ): number {

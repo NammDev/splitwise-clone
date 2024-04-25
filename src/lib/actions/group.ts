@@ -12,7 +12,7 @@ export async function getCacheGroup(groupId: string) {
     },
     [`group-${groupId}`],
     {
-      revalidate: 900,
+      revalidate: 300,
       tags: [`group-${groupId}`],
     }
   )()
