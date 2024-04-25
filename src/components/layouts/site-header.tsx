@@ -6,6 +6,7 @@ import { Button } from '../ui/button'
 import Image from 'next/image'
 import { ModeToggle } from './mode-toggle'
 import { Link } from '@/navigation'
+import LocalSwitcher from './local-switcher'
 
 // export function SiteHeader() {
 //   return (
@@ -49,6 +50,9 @@ export function SiteHeader() {
             <Button variant='ghost' asChild className='-my-3 text-primary'>
               <Link href='/groups'>Groups</Link>
             </Button>
+          </li>
+          <li>
+            <LocalSwitcher />
           </li>
           <li>
             <ModeToggle />
