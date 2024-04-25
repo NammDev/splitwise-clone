@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { ModeToggle } from './mode-toggle'
 import { Link } from '@/navigation'
 import LocalSwitcher from './local-switcher'
+import { useTranslations } from 'next-intl'
 
 // export function SiteHeader() {
 //   return (
@@ -31,6 +32,7 @@ import LocalSwitcher from './local-switcher'
 // }
 
 export function SiteHeader() {
+  const t = useTranslations('Components')
   return (
     <header className='fixed top-0 left-0 right-0 h-16 flex justify-between bg-opacity-50 dark:bg-opacity-50 p-2 backdrop-blur-sm z-50 container'>
       <Link className='flex items-center gap-2 hover:scale-105 transition-transform' href='/'>
@@ -48,14 +50,11 @@ export function SiteHeader() {
         <ul className='flex items-center text-sm'>
           <li>
             <Button variant='ghost' asChild className='-my-3 text-primary'>
-              <Link href='/groups'>Groups</Link>
+              <Link href='/groups'>{t('groups')}</Link>
             </Button>
           </li>
           <li>
             <LocalSwitcher />
-          </li>
-          <li>
-            <ModeToggle />
           </li>
         </ul>
       </div>

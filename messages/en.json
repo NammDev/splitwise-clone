@@ -2,5 +2,16 @@
   "Index": {
     "title": "No ads. No account. Open Source. Forever Free.",
     "small_title": "No ads. No account. Open Source. Forever Free."
+  },
+  "Components": {
+    "groups": "Groups"
+  },
+  "Header": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Register"
   }
 }
