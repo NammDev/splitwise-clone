@@ -3,7 +3,7 @@
 import { GroupForm } from '@/components/logic-ui/group-form'
 import { createGroup } from '@/lib/actions/group'
 import { GroupFormValues, groupFormSchema } from '@/lib/schemas'
-import { redirect } from 'next/navigation'
+import { redirect } from '@/navigation'
 
 export default async function CreateGroupPage() {
   async function createGroupAction(values: GroupFormValues) {

@@ -1,12 +1,13 @@
 import { getCacheGroup } from '@/lib/actions/group'
 import { expenseFormSchema } from '@/lib/schemas'
 import { Metadata } from 'next'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import { ExpenseForm } from '../../_components/expense-form'
 import { getRuntimeFeatureFlags } from '@/lib/featureFlag'
 import { getCategories } from '@/lib/actions/categories'
 import { deleteExpense, getExpense, updateExpense } from '@/lib/actions/expenses'
+import { redirect } from '@/navigation'
 
 export const metadata: Metadata = {
   title: 'Edit expense',

@@ -2,7 +2,7 @@
 
 import { AddGroupByUrlButton } from '@/components/logic-ui/add-group-by-url-button'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
+import { Link } from '@/navigation'
 import { PropsWithChildren } from 'react'
 
 export function GroupsPageLayout({ children, reload }: PropsWithChildren<{ reload: () => void }>) {

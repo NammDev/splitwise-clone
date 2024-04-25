@@ -3,10 +3,11 @@ import { createExpense } from '@/lib/actions/expenses'
 import { getCacheGroup } from '@/lib/actions/group'
 import { expenseFormSchema } from '@/lib/schemas'
 import { Metadata } from 'next'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import { ExpenseForm } from '../_components/expense-form'
 import { getRuntimeFeatureFlags } from '@/lib/featureFlag'
+import { redirect } from '@/navigation'
 
 export const metadata: Metadata = {
   title: 'Create expense',

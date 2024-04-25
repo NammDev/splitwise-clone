@@ -1,6 +1,6 @@
 import { getCacheGroup } from '@/lib/actions/group'
 import { Metadata } from 'next'
-import Link from 'next/link'
+import { Link } from '@/navigation'
 import { notFound } from 'next/navigation'
 import { PropsWithChildren, Suspense } from 'react'
 import { GroupTabs } from './_components/group-tabs'

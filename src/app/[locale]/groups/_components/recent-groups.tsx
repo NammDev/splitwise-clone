@@ -9,7 +9,7 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
-import Link from 'next/link'
+import { Link } from '@/navigation'
 import { useEffect, useState } from 'react'
 import { getGroups } from '@/lib/actions/group'
 import { GroupsPageLayout } from './groups-page'

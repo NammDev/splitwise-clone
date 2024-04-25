@@ -28,7 +28,7 @@ import { ExpenseFormValues, SplittingOptions, expenseFormSchema } from '@/lib/sc
 import { cn, formatDate, randomId } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Save } from 'lucide-react'
-import Link from 'next/link'
+import { Link } from '@/navigation'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'

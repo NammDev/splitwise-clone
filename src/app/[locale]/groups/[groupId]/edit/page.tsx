@@ -2,8 +2,9 @@ import { GroupForm } from '@/components/logic-ui/group-form'
 import { getCacheGroup, updateGroup } from '@/lib/actions/group'
 import { getGroupExpensesParticipants } from '@/lib/actions/participants'
 import { groupFormSchema } from '@/lib/schemas'
+import { redirect } from '@/navigation'
 import { Metadata } from 'next'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Settings',

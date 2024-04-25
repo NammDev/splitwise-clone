@@ -2,8 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Reimbursement } from '@/lib/actions/balances'
 import { formatCurrency } from '@/lib/utils'
 import { Participant } from '@prisma/client'
-import Link from 'next/link'
-
+import { Link } from '@/navigation'
 type Props = {
   reimbursements: Reimbursement[]
   participants: Participant[]

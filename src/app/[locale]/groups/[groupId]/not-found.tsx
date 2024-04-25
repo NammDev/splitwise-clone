@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-
+import { Link } from '@/navigation'
 export default function NotFound() {
   return (
     <div className='flex flex-col gap-2'>

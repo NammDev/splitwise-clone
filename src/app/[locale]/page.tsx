@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Github } from 'lucide-react'
-import Link from 'next/link'
+import { Link } from '@/navigation'
 import { useTranslations } from 'next-intl'
 
 export default function HomePage() {
