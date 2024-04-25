@@ -8,6 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { useBaseUrl } from '@/hooks/use-base-url'
 import { Group } from '@prisma/client'
 import { Share } from 'lucide-react'
+import { useLocale } from 'next-intl'
 
 type Props = {
   group: Group
@@ -15,7 +16,8 @@ type Props = {
 
 export function ShareButton({ group }: Props) {
   const baseUrl = useBaseUrl()
-  const url = baseUrl && `${baseUrl}/groups/${group.id}/expenses?ref=share`
+  const localActive = useLocale()
+  const url = baseUrl && `${baseUrl}/${localActive}/groups/${group.id}/expenses?ref=share`
 
   return (
     <Popover>
