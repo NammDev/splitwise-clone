@@ -12,7 +12,7 @@ const envSchema = z
       .string()
       .optional()
       .default(
-        process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
+        process.env.HEROKU_URL ? `https://${process.env.HEROKU_URL}` : 'http://localhost:3000'
       ),
     NEXT_PUBLIC_ENABLE_EXPENSE_DOCUMENTS: z.preprocess(
       interpretEnvVarAsBool,
