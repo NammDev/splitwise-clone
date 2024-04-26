@@ -56,6 +56,9 @@ export function SiteHeader() {
           <li>
             <LocalSwitcher />
           </li>
+          <li>
+            <ModeToggle />
+          </li>
         </ul>
       </div>
     </header>
